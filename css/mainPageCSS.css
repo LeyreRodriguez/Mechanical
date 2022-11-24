@@ -1,0 +1,117 @@
+*, *:before, *:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ul{
+    padding-left: 0;
+}
+:root {
+    --sidebar-min-width: 50px;
+    --sidebar-max-width: 200px;
+    --main-content-width: calc(100vw - var(--sidebar-min-width));
+}
+
+.root {
+    display: grid;
+    grid-template-columns: auto auto;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+.sidebar {
+    background-color: teal;
+    color: white;
+    font-family: sans-serif;
+    width: var(--sidebar-min-width);
+    overflow: hidden;
+    transition: all .2s;
+}
+
+.sidebar--open {
+    width: var(--sidebar-max-width);
+}
+
+.sidebar .fas {
+    display: inline-block;
+    width: var(--sidebar-min-width);
+    text-align: center;
+    padding: 10px 0;
+}
+
+.burger-icon {
+    text-align: left;
+}
+
+.burger-icon > .fa-bars {
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.menu {
+    min-width: var(--sidebar-max-width);
+}
+
+.menu__item {
+    display: flex;
+}
+
+.menu__item:hover {
+    background-color: #333;
+}
+
+.menu__link {
+    padding: 10px 0;
+    color: white;
+    text-decoration: none;
+    width: calc(100% - var(--sidebar-min-width));
+}
+
+.sidebar--open .menu__link {
+    animation: animatedLink .2s linear;
+    animation-fill-mode: both;
+}
+
+@keyframes animatedLink {
+    from {
+        opacity: 0;
+        background-color: #333;
+        transform: translate(-50px, -30px);
+    }
+    to {
+        opacity: 1;
+        background-color: inherit;
+        transform: translate(0, 0);
+    }
+}
+
+.sidebar--open .menu__item:nth-child(4) .menu__link {
+    animation-delay: .1s;
+}
+
+.sidebar--open .menu__item:nth-child(3) .menu__link {
+    animation-delay: .2s;
+}
+
+.sidebar--open .menu__item:nth-child(2) .menu__link {
+    animation-delay: .3s;
+}
+
+.sidebar--open .menu__item:nth-child(1) .menu__link {
+    animation-delay: .4s;
+}
+
+.main-content {
+    height: 100vh;
+    width: var(--main-content-width);
+    overflow-y: auto;
+}
+
+.content {
+    padding: 15px;
+}
+
+.page-title {
+    padding-bottom: 10px;
+}

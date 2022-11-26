@@ -1,0 +1,58 @@
+<?php declare(strict_types=1);
+
+if (isset($_POST['cancel'])) { //has cancelado porque no quieres eliminar al empleado
+    header("location: list.php"); //vuelves al actuaciones
+} else if (isset($_POST['delete'])){ //has seleccionado que quieres eliminar el actuaciones
+    $conn = require "../database.php";
+
+    $stm = $conn->prepare("delete from actuaciones where Referencia = :Referencia");
+    $stm->execute(array(':Referencia' => $_POST['Referencia']));
+
+    $stm = null; //se cierra la conexión
+    $conn = null;
+
+    header("location: list.php");
+}
+
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/formCSS.css">
+    <title>Document</title>
+</head>
+<body>
+
+
+<div id="container">
+        <h1>&bull; <?=$_GET['Referencia']?> &bull;</h1>
+        <br>
+        <div class="underline">
+        </div>
+        <form action="delete.php" method="post" id="contact_form">
+          <div class="telephone">
+            <label for="name">¿Seguro que quiere eliminar la actuación con referencia <?=$_GET['Referencia']?>?</label>
+            
+          </div>
+
+          
+          <div class="submit">
+        
+
+            <input type="button" onclick="location.href='../actuaciones/actuaciones.php'" value="Enviar" id="form_button" />
+            <input type="button" onclick="location.href='../actuaciones/form.php?Referencia=<?=$actuaciones['Referencia']?>'" value="Cancelar" id="form_button" />
+
+            
+
+          
+          </div>
+        </form><!-- // End form -->
+      </div><!-- // End #container -->
+
+</body>
+</html>
